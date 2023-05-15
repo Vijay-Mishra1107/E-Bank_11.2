@@ -1,0 +1,158 @@
+<div class="row mb-0 mt-2">
+    <div class="col-search-all mb-2 row col-12 col-sm-7 col-md-8 col-lg-8 col-xl-8 fs-6">
+        <div class="input-group">
+            <button mat-raised-button class="bt bg-btn" #mySelect type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fas fs-6 me-1 fa-filter"></i> {{FilterName}}</button>
+            <ul class="dropdown-menu">
+                <li *ngFor="let dropdownValue of FilterButton; index as i">
+                    <button [ngStyle]="FilterButtonStyle(dropdownValue)" mat-raised-button
+                        matTooltip="Camp start date filter" class="ms-2 me-2 pt-0 pb-0 bg-btn2"
+                        matTooltip="{{dropdownValue.buttonName}}" (click)="filter(dropdownValue)">
+                        <b>{{dropdownValue.buttonName}}</b>
+                    </button>
+                </li>
+            </ul>
+            <div class="Search-box-top">
+                <input type="text" placeholder="Search user name" (keyup)="updateFilter($event)"
+                    class="form-control Search-input form-control-width" aria-label="Text input with dropdown button">
+                <i class="fas fa-search pe-3 text-secondary"></i>
+            </div>
+        </div>
+        <div class="text-danger" *ngIf="show">This name is not found...</div>
+    </div>
+</div>
+<mat-card class="p-0 ms-0 me-0">
+    <mat-card-content class="p-0">
+        <ngx-datatable #myTable class="material table-height expandable striped full-width" [columnMode]="'force'"
+            [headerHeight]="55" [footerHeight]="50" [rowHeight]="80" [scrollbarH]="true" [scrollbarV]="true"
+            [rows]="allClientList" [limit]="10" [sorts]="[{prop: 'name', dir: 'desc'}]">
+
+            <ngx-datatable-column name="Sr.No." [sortable]="false" [frozenLeft]="true" [width]=90
+                [canAutoResize]="false" [resizeable]="false">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Sr.No.</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    {{rowIndex+1}}
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="User Name" [sortable]="true" [width]=200 prop="username">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">User Name</span>
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="mainText-rowdata"
+                        *ngIf="row?.username !== undefined && row?.username !== null && row?.username !== ''">
+                        {{ row?.username}}
+                    </div>
+                    <div *ngIf="row?.username === undefined || row?.username === null || row?.username === ''">
+                        <span>---</span>
+                    </div>
+                    <div class="subText-row-data"
+                        *ngIf="row?.phone !== undefined && row?.phone !== null && row?.phone !== ''">
+                        {{ row?.phone}}
+                    </div>
+                    <div class="" *ngIf="row?.phone === undefined || row?.phone === null || row?.phone === ''">
+                        ---
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Account Number" [width]=120 [sortable]="true" prop="accountNumber">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Account Number</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data text-cente"
+                        *ngIf="row?.accountNumber !== undefined && row?.accountNumber !== null && row?.accountNumber !== ''">
+                        {{row?.accountNumber}}
+                    </div>
+                    <div
+                        *ngIf="row?.accountNumber === undefined || row?.accountNumber === null || row?.accountNumber === ''">
+                        ---
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Join" [width]=180 [sortable]="false">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Join</span>
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data" *ngIf="row?.join !== undefined && row?.join !== null && row?.join !== '' ">
+                        {{row?.join | date : "fullDate"}}
+                    </div>
+                    <div *ngIf="row?.join === undefined || row?.join === null || row?.join === '' ">
+                        <span>---</span>
+                    </div>
+                    <div class="subText-row-data"
+                        *ngIf="row?.join !== undefined && row?.join !== null && row?.join !== '' ">
+                        {{row?.join | date : "mediumTime"}}
+                    </div>
+                    <div class="" *ngIf="row?.join === undefined || row?.join === null || row?.join === '' ">
+                        ---
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Email" [width]=200 [sortable]="true" prop="email">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">email</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data text-cente"
+                        *ngIf="row?.email !== undefined && row?.email !== null && row?.email !== ''">
+                        {{row?.email}}
+                    </div>
+                    <div *ngIf="row?.email === undefined || row?.email === null || row?.email === ''">
+                        ---
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Address" [width]=200 [sortable]="true" prop="address">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Address</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data text-cente"
+                        *ngIf="row?.address !== undefined && row?.address !== null && row?.address !== ''">
+                        {{row?.address}}
+                    </div>
+                    <div *ngIf="row?.address === undefined || row?.address === null || row?.address === ''">
+                        ---
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Is-Freeze" [width]=110 [sortable]="true" prop="isFreez">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Is-Freeze Status</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data text-cente">
+                        {{row?.isFreez}}
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Balance" [width]=150 [sortable]="true" prop="balance">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Balance</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data text-cente"
+                        *ngIf="row?.balance !== undefined && row?.balance !== null && row?.balance !== ''">
+                        {{row?.balance}}
+                    </div>
+                    <div *ngIf="row?.balance === undefined || row?.balance === null || row?.balance === ''">
+                        ---
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+        </ngx-datatable>
+    </mat-card-content>
+</mat-card>

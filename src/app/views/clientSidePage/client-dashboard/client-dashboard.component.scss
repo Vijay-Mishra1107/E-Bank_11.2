@@ -1,0 +1,32 @@
+@import '../../.././../styles.css';
+
+.main-mat-card{
+  // margin-top: %;
+  height: 82vh !important;
+  overflow: auto;
+}
+
+.sub-mat-card{
+  // height: 100% !important;
+  overflow: auto;
+}
+
+.sub-container{
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+.sub-mat-card-balance{
+  background-color: #ceffef !important;
+  color: #b1afaf;
+  > mat-card-content .button-icon .btn{
+    background-color: #ffb8b882;
+  }
+}
+
+.Img-icon{
+  border-radius: 50%;
+  height: 120px;
+  width: 140px;
+  cursor: pointer;
+}

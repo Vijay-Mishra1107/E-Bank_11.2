@@ -1,0 +1,8 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+// Keep atleast one file
+@import "./WiproBank-light-purple";
+
+$background: map-get($WiproBank-theme, background);
+$foreground: map-get($WiproBank-theme, foreground);

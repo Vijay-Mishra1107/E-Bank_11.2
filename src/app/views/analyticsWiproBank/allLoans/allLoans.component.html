@@ -1,0 +1,886 @@
+<div class="row mb-0 mt-2">
+    <div class="col-search-all mb-2 row col-12 col-sm-7 col-md-8 col-lg-8 col-xl-8 fs-6">
+        <div class="input-group">
+            <div class="Search-box-top">
+                <input type="text" placeholder="Search user name" (keyup)="updateFilter($event)"
+                    class="form-control Search-input form-control-width" aria-label="Text input with dropdown button">
+                <i class="fas fa-search pe-3 text-secondary"></i>
+            </div>
+        </div>
+        <div class="text-danger" *ngIf="show">This name is not found...</div>
+    </div>
+</div>
+
+<mat-tab-group class="m-0" mat-align-tabs="start">
+    <mat-tab label="Loan Applications">
+        <ng-template mat-tab-label>
+            <span class="fs-6 fw-bolder">
+                Loan Applications
+            </span>
+        </ng-template>
+        <mat-card class="p-0 ms-0 me-0">
+            <mat-card-content class="p-0">
+                <ngx-datatable #LoanApplications class="material table-height-II expandable striped full-width"
+                    [columnMode]="'force'" [headerHeight]="55" [footerHeight]="50" [rowHeight]="80" [scrollbarH]="true"
+                    [scrollbarV]="true" [rows]="loanApplications" [limit]="10" [sorts]="[{prop: 'name', dir: 'desc'}]">
+
+                    <ngx-datatable-column name="Sr.No." [sortable]="false" [frozenLeft]="true" [width]=90
+                        [canAutoResize]="false" [resizeable]="false">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">Sr.No.</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            {{rowIndex+1}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-row-detail [rowHeight]="150" #myDetailRow>
+                        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                            <mat-card>
+                                <mat-card-content class="p-0">
+                                    <div style="height: 50px; overflow: auto; white-space: pre-wrap !important;"
+                                        class="text-center fw-bold fs-8 text-secondary">
+                                        {{loanForReason}}
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                            <div class="text-center mt-2">
+                                <button mat-button color="warn" (click)="CollapseAllRow(row, 'loanApplications')"
+                                    type="button">Cancel</button>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-row-detail>
+
+                    <ngx-datatable-column name="User Name" [sortable]="true" [width]=200 prop="username">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">User Name</span>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.username !== undefined && row?.username !== null && row?.username !== ''">
+                                {{ row?.username}}
+                            </div>
+                            <div *ngIf="row?.username === undefined || row?.username === null || row?.username === ''">
+                                <span>---</span>
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.phone !== undefined && row?.phone !== null && row?.phone !== ''">
+                                Mob. No. : {{ row?.phone}}
+                            </div>
+                            <div class="" *ngIf="row?.phone === undefined || row?.phone === null || row?.phone === ''">
+                                ---
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.email !== undefined && row?.email !== null && row?.email !== ''">
+                                Email ID : {{ row?.email}}
+                            </div>
+                            <div class="" *ngIf="row?.email === undefined || row?.email === null || row?.email === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan ID Account Number" [width]=190 [sortable]="true" prop="loanID">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">Loan ID<br>Account Number</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.loanID !== undefined && row?.loanID !== null && row?.loanID !== ''">
+                                Loan ID : {{ row?.loanID}}
+                            </div>
+                            <div *ngIf="row?.loanID === undefined || row?.loanID === null || row?.loanID === ''">
+                                <span>---</span>
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.accountNumber !== undefined && row?.accountNumber !== null && row?.accountNumber !== ''">
+                                Ac. No. : {{row?.accountNumber}}
+                            </div>
+                            <div
+                                *ngIf="row?.accountNumber === undefined || row?.accountNumber === null || row?.accountNumber === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan Ammount" [width]=130 [sortable]="true" prop="loanAmmount">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="fw-bold header-line-height fs-7">Loan Ammount</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata text-center"
+                                *ngIf="row?.loanAmmount !== undefined && row?.loanAmmount !== null && row?.loanAmmount !== ''">
+                                {{row?.loanAmmount}}
+                            </div>
+                            <div
+                                *ngIf="row?.loanAmmount === undefined || row?.loanAmmount === null || row?.loanAmmount === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan Time or Type" [width]=170 [sortable]="true" prop="loanType">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="fw-bold header-line-height fs-7">Loan Time or Type</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.loanYears !== undefined && row?.loanYears !== null && row?.loanYears !== ''">
+                                {{row?.loanYears}} year<span *ngIf="(row?.loanYears > 1)">'s</span>
+                            </div>
+                            <div
+                                *ngIf="row?.loanYears === undefined || row?.loanYears === null || row?.loanYears === ''">
+                                ---
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.loanType !== undefined && row?.loanType !== null && row?.loanType !== ''">
+                                Loan Type : {{row?.loanType | titlecase}}
+                            </div>
+                            <div *ngIf="row?.loanType === undefined || row?.loanType === null || row?.loanType === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Total Panelty" [width]=135 [sortable]="true" prop="totalPanelty">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class=" fw-bold header-line-height fs-7">Total Panelty</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata text-center"
+                                *ngIf="row?.totalPanelty !== undefined && row?.totalPanelty !== null && row?.totalPanelty !== '' ">
+                                {{row?.totalPanelty}}
+                            </div>
+                            <div
+                                *ngIf="row?.totalPanelty === undefined || row?.totalPanelty === null || row?.totalPanelty === '' ">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Current Balance" [width]=110 [sortable]="true" prop="currentBalance">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="fw-bold header-line-height fs-7">Current Balance</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata text-center"
+                                *ngIf="row?.currentBalance !== undefined && row?.currentBalance !== null && row?.currentBalance !== ''">
+                                {{row?.currentBalance}}
+                            </div>
+                            <div
+                                *ngIf="row?.currentBalance === undefined || row?.currentBalance === null || row?.currentBalance === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [width]="70" [resizeable]="false" [sortable]="false" [draggable]="false"
+                        [canAutoResize]="false">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <div class="text-center">
+                                <span class="fw-bold header-line-height fs-7">View Reason</span>
+                            </div>
+                        </ng-template>
+                        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                            <div class="text-center">
+                                <button mat-icon-button mat-sm-button matTooltip="Viwe Reason"
+                                    (click)="toggleExpandRow(row, 'loanApplications')"
+                                    [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded">
+                                </button>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Action" [width]=200 [sortable]="false">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <div class="text-center">
+                                <span class="fw-bold header-line-height fs-7">Action</span>
+                            </div>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <button mat-raised-button mat-sm-button color="accent" matTooltip="Loan Approved"
+                                class="me-2" (click)="loanApprovedAndDecline(row, 'approved')">
+                                Accept
+                            </button>
+                            <button mat-raised-button mat-sm-button color="warn" matTooltip="Loan Decline" class="ms-2"
+                                (click)="loanApprovedAndDecline(row, 'decline')">
+                                Decline
+                            </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                </ngx-datatable>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Approved Loans">
+        <ng-template mat-tab-label>
+            <span class="fs-6 fw-bolder">
+                Approved Loans
+            </span>
+        </ng-template>
+        <mat-card class="p-0 ms-0 me-0">
+            <mat-card-content class="p-0">
+                <ngx-datatable #ApprovedLoans class="material table-height-II expandable striped full-width"
+                    [columnMode]="'force'" [headerHeight]="55" [footerHeight]="50" [rowHeight]="80" [scrollbarH]="true"
+                    [scrollbarV]="true" [rows]="approvedLoans" [limit]="10" [sorts]="[{prop: 'name', dir: 'desc'}]">
+
+                    <ngx-datatable-column name="Sr.No." [sortable]="false" [frozenLeft]="true" [width]=90
+                        [canAutoResize]="false" [resizeable]="false">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">Sr.No.</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            {{rowIndex+1}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-row-detail [rowHeight]="320" #myDetailRow>
+                        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                            <ngx-datatable class="material striped full-width" [columnMode]="'force'"
+                                [headerHeight]="55" [footerHeight]="0" [rowHeight]="50" [scrollbarH]="true"
+                                [scrollbarV]="true" [rows]="row?.emi" [limit]="10"
+                                [sorts]="[{prop: 'name', dir: 'desc'}]" style="height: 260px;">
+
+                                <ngx-datatable-column name="Sr.No." [sortable]="false" [frozenLeft]="true" [width]=90
+                                    [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span class="text-center fw-bold header-line-height fs-8">Sr.No.</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <span class="fs-9">{{rowIndex+1}}</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="EMI Submite Date" [width]=110 [sortable]="true"
+                                    prop="emiSubmiteDate">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span class="fw-bold header-line-height fs-8">EMI Submite Date</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <div class="fs-9"
+                                            *ngIf="row?.emiSubmiteDate !== undefined && row?.emiSubmiteDate !== null && row?.emiSubmiteDate !== ''">
+                                            {{row?.emiSubmiteDate}}
+                                        </div>
+                                        <div *ngIf="row?.emiSubmiteDate === undefined || row?.emiSubmiteDate === null || row?.emiSubmiteDate === ''">
+                                            ---
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Amount Remaning" [width]=110 [sortable]="true"
+                                    prop="amountRemaning">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                            <span class="fw-bold header-line-height fs-8">Amount Remaning</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <div class="fs-9"
+                                            *ngIf="row?.amountRemaning !== undefined && row?.amountRemaning !== null && row?.amountRemaning !== ''">
+                                            {{row?.amountRemaning}}
+                                        </div>
+                                        <div *ngIf="row?.amountRemaning === undefined || row?.amountRemaning === null || row?.amountRemaning === ''">
+                                            ---
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="EMI Ammount" [width]=110 [sortable]="true"
+                                    prop="emiAmmount">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                            <span class="fw-bold header-line-height fs-8">EMI Ammount</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <div class="fs-9"
+                                            *ngIf="row?.emiAmmount !== undefined && row?.emiAmmount !== null && row?.emiAmmount !== ''">
+                                            {{row?.emiAmmount}}
+                                        </div>
+                                        <div *ngIf="row?.emiAmmount === undefined || row?.emiAmmount === null || row?.emiAmmount === ''">
+                                            ---
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Next EMI" [width]=110 [sortable]="true" prop="nextEmi">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                            <span class="fw-bold header-line-height fs-8">Next EMI</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <div class="fs-9"
+                                            *ngIf="row?.nextEmi !== undefined && row?.nextEmi !== null && row?.nextEmi !== ''">
+                                            {{row?.nextEmi | date : "fullDate"}}
+                                        </div>
+                                        <div *ngIf="row?.nextEmi === undefined || row?.nextEmi === null || row?.nextEmi === ''">
+                                            ---
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="EMI Status" [width]=110 [sortable]="true" prop="status">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                            <span class="fw-bold header-line-height fs-8">EMI Status</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <div class="fs-9"
+                                            *ngIf="row?.status !== undefined && row?.status !== null && row?.status !== ''">
+                                            <span class="fw-bold"
+                                                [ngClass]="(row?.status !== 'unpaid')? 'text-success' : 'text-warning'">{{row?.status
+                                                | uppercase}}</span>
+                                        </div>
+                                        <div *ngIf="row?.status === undefined || row?.status === null || row?.status === ''">
+                                            ---
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                            </ngx-datatable>
+                            <div class="text-center mt-2">
+                                <button mat-button color="warn" (click)="CollapseAllRow(row, 'approvedLoans')"
+                                    type="button">Cancel</button>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-row-detail>
+
+                    <ngx-datatable-column name="User Name" [sortable]="true" [width]=200 prop="username">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">User Name</span>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.username !== undefined && row?.username !== null && row?.username !== ''">
+                                {{ row?.username}}
+                            </div>
+                            <div *ngIf="row?.username === undefined || row?.username === null || row?.username === ''">
+                                <span>---</span>
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.phone !== undefined && row?.phone !== null && row?.phone !== ''">
+                                Mob. No. : {{ row?.phone}}
+                            </div>
+                            <div class="" *ngIf="row?.phone === undefined || row?.phone === null || row?.phone === ''">
+                                ---
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.email !== undefined && row?.email !== null && row?.email !== ''">
+                                Email ID : {{ row?.email}}
+                            </div>
+                            <div class="" *ngIf="row?.email === undefined || row?.email === null || row?.email === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan ID Account Number" [width]=185 [sortable]="true" prop="loanID">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">Loan ID<br>Account Number</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.loanID !== undefined && row?.loanID !== null && row?.loanID !== ''">
+                                Loan ID : {{ row?.loanID}}
+                            </div>
+                            <div *ngIf="row?.loanID === undefined || row?.loanID === null || row?.loanID === ''">
+                                <span>---</span>
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.accountNumber !== undefined && row?.accountNumber !== null && row?.accountNumber !== ''">
+                                Ac. No. : {{row?.accountNumber}}
+                            </div>
+                            <div
+                                *ngIf="row?.accountNumber === undefined || row?.accountNumber === null || row?.accountNumber === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan Ammount" [width]=125 [sortable]="true" prop="loanAmmount">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                                <span class="fw-bold header-line-height fs-7">Loan Ammount</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata text-center"
+                                *ngIf="row?.loanAmmount !== undefined && row?.loanAmmount !== null && row?.loanAmmount !== ''">
+                                {{row?.loanAmmount}}
+                            </div>
+                            <div
+                                *ngIf="row?.loanAmmount === undefined || row?.loanAmmount === null || row?.loanAmmount === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan Time or Type" [width]=170 [sortable]="true" prop="loanType">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">Loan Time or Type</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.loanYears !== undefined && row?.loanYears !== null && row?.loanYears !== ''">
+                                {{row?.loanYears}} year<span *ngIf="(row?.loanYears > 1)">'s</span>
+                            </div>
+                            <div
+                                *ngIf="row?.loanYears === undefined || row?.loanYears === null || row?.loanYears === ''">
+                                ---
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.loanType !== undefined && row?.loanType !== null && row?.loanType !== ''">
+                                Loan Type : {{row?.loanType | titlecase}}
+                            </div>
+                            <div *ngIf="row?.loanType === undefined || row?.loanType === null || row?.loanType === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan Date" [width]=190 [sortable]="false">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <div class="text-center">
+                                <span class="fw-bold header-line-height fs-7">Loan Date</span>
+                            </div>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <div class="row-data text-center">
+                                <div
+                                    *ngIf="row?.loanIssueDate !== undefined && row?.loanIssueDate !== null && row?.loanIssueDate !== '' ">
+                                    {{row?.loanIssueDate | date : "fullDate"}}
+                                </div>
+                                <div
+                                    *ngIf="row?.loanIssueDate === undefined || row?.loanIssueDate === null || row?.loanIssueDate === '' ">
+                                    ---
+                                </div>
+                                <div>to</div>
+                                <div
+                                    *ngIf="row?.loanIssueTill !== undefined && row?.loanIssueTill !== null && row?.loanIssueTill !== '' ">
+                                    {{row?.loanIssueTill | date : "fullDate"}}
+                                </div>
+                                <div class=""
+                                    *ngIf="row?.loanIssueTill === undefined || row?.loanIssueTill === null || row?.loanIssueTill === '' ">
+                                    ---
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Total Panelty" [width]=135 [sortable]="true" prop="totalPanelty">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                                <span class="text-center fw-bold header-line-height fs-7">Total Panelty</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata text-center"
+                                *ngIf="row?.totalPanelty !== undefined && row?.totalPanelty !== null && row?.totalPanelty !== '' ">
+                                {{row?.totalPanelty}}
+                            </div>
+                            <div
+                                *ngIf="row?.totalPanelty === undefined || row?.totalPanelty === null || row?.totalPanelty === '' ">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Current Balance" [width]=120 [sortable]="true" prop="currentBalance">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                                <span class="fw-bold header-line-height fs-7">Current Balance</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata text-center"
+                                *ngIf="row?.currentBalance !== undefined && row?.currentBalance !== null && row?.currentBalance !== ''">
+                                {{row?.currentBalance}}
+                            </div>
+                            <div
+                                *ngIf="row?.currentBalance === undefined || row?.currentBalance === null || row?.currentBalance === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+
+                    <ngx-datatable-column name="View EMI" [sortable]="false" [width]=90>
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">View EMI</span>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <button mat-icon-button mat-sm-button class="edit-btn" matTooltip="EMI Details"
+                                (click)="toggleExpandRow(row, 'approvedLoans')">
+                                <i class="fas fa-handshake fs-5"></i>
+                            </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                </ngx-datatable>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Completed Loans">
+        <ng-template mat-tab-label>
+            <span class="fs-6 fw-bolder">
+                Completed Loans
+            </span>
+        </ng-template>
+        <mat-card class="p-0 ms-0 me-0">
+            <mat-card-content class="p-0">
+                <ngx-datatable #CompletedLoans class="material table-height-II expandable striped full-width"
+                    [columnMode]="'force'" [headerHeight]="55" [footerHeight]="50" [rowHeight]="80" [scrollbarH]="true"
+                    [scrollbarV]="true" [rows]="completedLoans" [limit]="10" [sorts]="[{prop: 'name', dir: 'desc'}]">
+
+
+                    <ngx-datatable-column name="Sr.No." [sortable]="false" [frozenLeft]="true" [width]=90
+                        [canAutoResize]="false" [resizeable]="false">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">Sr.No.</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            {{rowIndex+1}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-row-detail [rowHeight]="300" #myDetailRow>
+                        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                            <ngx-datatable class="material striped full-width" [columnMode]="'force'"
+                                [headerHeight]="55" [footerHeight]="0" [rowHeight]="50" [scrollbarH]="true"
+                                [scrollbarV]="true" [rows]="row?.emi" [limit]="10"
+                                [sorts]="[{prop: 'name', dir: 'desc'}]" style="height: 260px;">
+
+                                <ngx-datatable-column name="Sr.No." [sortable]="false" [frozenLeft]="true" [width]=90
+                                    [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span class="text-center fw-bold header-line-height fs-8">Sr.No.</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <span class="fs-9">{{rowIndex+1}}</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="EMI Submite Date" [width]=110 [sortable]="true"
+                                    prop="emiSubmiteDate">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span class="fw-bold header-line-height fs-8">EMI Submite Date</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <div class="fs-9"
+                                            *ngIf="row?.emiSubmiteDate !== undefined && row?.emiSubmiteDate !== null && row?.emiSubmiteDate !== ''">
+                                            {{row?.emiSubmiteDate}}
+                                        </div>
+                                        <div *ngIf="row?.emiSubmiteDate === undefined || row?.emiSubmiteDate === null || row?.emiSubmiteDate === ''">
+                                            ---
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Amount Remaning" [width]=110 [sortable]="true"
+                                    prop="amountRemaning">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                            <span class="fw-bold header-line-height fs-8">Amount Remaning</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <div class="fs-9"
+                                            *ngIf="row?.amountRemaning !== undefined && row?.amountRemaning !== null && row?.amountRemaning !== ''">
+                                            {{row?.amountRemaning}}
+                                        </div>
+                                        <div *ngIf="row?.amountRemaning === undefined || row?.amountRemaning === null || row?.amountRemaning === ''">
+                                            ---
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="EMI Ammount" [width]=110 [sortable]="true"
+                                    prop="emiAmmount">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                            <span class="fw-bold header-line-height fs-8">EMI Ammount</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <div class="fs-9"
+                                            *ngIf="row?.emiAmmount !== undefined && row?.emiAmmount !== null && row?.emiAmmount !== ''">
+                                            {{row?.emiAmmount}}
+                                        </div>
+                                        <div *ngIf="row?.emiAmmount === undefined || row?.emiAmmount === null || row?.emiAmmount === ''">
+                                            ---
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Next EMI" [width]=110 [sortable]="true" prop="nextEmi">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                            <span class="fw-bold header-line-height fs-8">Next EMI</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <div class="fs-9"
+                                            *ngIf="row?.nextEmi !== undefined && row?.nextEmi !== null && row?.nextEmi !== ''">
+                                            {{row?.nextEmi | date : "fullDate"}}
+                                        </div>
+                                        <div *ngIf="row?.nextEmi === undefined || row?.nextEmi === null || row?.nextEmi === ''">
+                                            ---
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="EMI Status" [width]=110 [sortable]="true" prop="status">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                            <span class="fw-bold header-line-height fs-8">EMI Status</span>
+                                    </ng-template>
+                                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                        <div class="fs-9"
+                                            *ngIf="row?.status !== undefined && row?.status !== null && row?.status !== ''">
+                                            <span class="fw-bold"
+                                                [ngClass]="(row?.status !== 'unpaid')? 'text-success' : 'text-warning'">{{row?.status
+                                                | uppercase}}</span>
+                                        </div>
+                                        <div *ngIf="row?.status === undefined || row?.status === null || row?.status === ''">
+                                            ---
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                            <div class="text-center mt-2">
+                                <button mat-button color="warn" (click)="CollapseAllRow(row, 'completedLoans')"
+                                    type="button">Cancel</button>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-row-detail>
+
+                    <ngx-datatable-column name="User Name" [sortable]="true" [width]=200 prop="username">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">User Name</span>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.username !== undefined && row?.username !== null && row?.username !== ''">
+                                {{ row?.username}}
+                            </div>
+                            <div *ngIf="row?.username === undefined || row?.username === null || row?.username === ''">
+                                <span>---</span>
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.phone !== undefined && row?.phone !== null && row?.phone !== ''">
+                                Mob. No. : {{ row?.phone}}
+                            </div>
+                            <div class="" *ngIf="row?.phone === undefined || row?.phone === null || row?.phone === ''">
+                                ---
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.email !== undefined && row?.email !== null && row?.email !== ''">
+                                Email ID : {{ row?.email}}
+                            </div>
+                            <div class="" *ngIf="row?.email === undefined || row?.email === null || row?.email === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan ID Account Number" [width]=185 [sortable]="true" prop="loanID">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">Loan ID<br>Account Number</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.loanID !== undefined && row?.loanID !== null && row?.loanID !== ''">
+                                Loan ID : {{ row?.loanID}}
+                            </div>
+                            <div *ngIf="row?.loanID === undefined || row?.loanID === null || row?.loanID === ''">
+                                <span>---</span>
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.accountNumber !== undefined && row?.accountNumber !== null && row?.accountNumber !== ''">
+                                Ac. No. : {{row?.accountNumber}}
+                            </div>
+                            <div
+                                *ngIf="row?.accountNumber === undefined || row?.accountNumber === null || row?.accountNumber === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan Ammount" [width]=120 [sortable]="true" prop="loanAmmount">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                                <span class="fw-bold header-line-height fs-7">Loan Ammount</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata text-center"
+                                *ngIf="row?.loanAmmount !== undefined && row?.loanAmmount !== null && row?.loanAmmount !== ''">
+                                {{row?.loanAmmount}}
+                            </div>
+                            <div
+                                *ngIf="row?.loanAmmount === undefined || row?.loanAmmount === null || row?.loanAmmount === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan Time or Type" [width]=170 [sortable]="true" prop="loanType">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">Loan Time or Type</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.loanYears !== undefined && row?.loanYears !== null && row?.loanYears !== ''">
+                                {{row?.loanYears}} year<span *ngIf="(row?.loanYears > 1)">'s</span>
+                            </div>
+                            <div
+                                *ngIf="row?.loanYears === undefined || row?.loanYears === null || row?.loanYears === ''">
+                                ---
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.loanType !== undefined && row?.loanType !== null && row?.loanType !== ''">
+                                Loan Type : {{row?.loanType | titlecase}}
+                            </div>
+                            <div *ngIf="row?.loanType === undefined || row?.loanType === null || row?.loanType === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan Date" [width]=190 [sortable]="false">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <div class="text-center">
+                                <span class="fw-bold header-line-height fs-7">Loan Date</span>
+                            </div>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <div class="row-data text-center">
+                                <div
+                                    *ngIf="row?.loanIssueDate !== undefined && row?.loanIssueDate !== null && row?.loanIssueDate !== '' ">
+                                    {{row?.loanIssueDate | date : "fullDate"}}
+                                </div>
+                                <div
+                                    *ngIf="row?.loanIssueDate === undefined || row?.loanIssueDate === null || row?.loanIssueDate === '' ">
+                                    ---
+                                </div>
+                                <div>to</div>
+                                <div
+                                    *ngIf="row?.loanIssueTill !== undefined && row?.loanIssueTill !== null && row?.loanIssueTill !== '' ">
+                                    {{row?.loanIssueTill | date : "fullDate"}}
+                                </div>
+                                <div class=""
+                                    *ngIf="row?.loanIssueTill === undefined || row?.loanIssueTill === null || row?.loanIssueTill === '' ">
+                                    ---
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Total Panelty" [width]=135 [sortable]="true" prop="totalPanelty">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                                <span class="text-center fw-bold header-line-height fs-7">Total Panelty</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata text-center"
+                                *ngIf="row?.totalPanelty !== undefined && row?.totalPanelty !== null && row?.totalPanelty !== '' ">
+                                {{row?.totalPanelty}}
+                            </div>
+                            <div
+                                *ngIf="row?.totalPanelty === undefined || row?.totalPanelty === null || row?.totalPanelty === '' ">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="View EMI" [sortable]="false" [width]=90>
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">View EMI</span>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <button mat-icon-button mat-sm-button class="edit-btn" matTooltip="EMI Details"
+                                (click)="toggleExpandRow(row, 'completedLoans')">
+                                <i class="fas fa-handshake fs-5"></i>
+                            </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                </ngx-datatable>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Decline Loans">
+        <ng-template mat-tab-label>
+            <span class="fs-6 fw-bolder">
+                Decline Loans
+            </span>
+        </ng-template>
+        <mat-card class="p-0 ms-0 me-0">
+            <mat-card-content class="p-0">
+                <ngx-datatable #DeclineLoans class="material table-height-II expandable striped full-width"
+                    [columnMode]="'force'" [headerHeight]="55" [footerHeight]="50" [rowHeight]="80" [scrollbarH]="true"
+                    [scrollbarV]="true" [rows]="declineLoans" [limit]="10" [sorts]="[{prop: 'name', dir: 'desc'}]">
+
+
+                    <ngx-datatable-column name="Sr.No." [sortable]="false" [frozenLeft]="true" [width]=90
+                        [canAutoResize]="false" [resizeable]="false">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">Sr.No.</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            {{rowIndex+1}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="User Name" [sortable]="true" [width]=200 prop="username">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">User Name</span>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.username !== undefined && row?.username !== null && row?.username !== ''">
+                                {{ row?.username}}
+                            </div>
+                            <div *ngIf="row?.username === undefined || row?.username === null || row?.username === ''">
+                                <span>---</span>
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.phone !== undefined && row?.phone !== null && row?.phone !== ''">
+                                Mob. No. : {{ row?.phone}}
+                            </div>
+                            <div class="" *ngIf="row?.phone === undefined || row?.phone === null || row?.phone === ''">
+                                ---
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.email !== undefined && row?.email !== null && row?.email !== ''">
+                                Email ID : {{ row?.email}}
+                            </div>
+                            <div class="" *ngIf="row?.email === undefined || row?.email === null || row?.email === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan ID Account Number" [width]=185 [sortable]="true" prop="loanID">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class="text-center fw-bold header-line-height fs-7">Loan ID<br>Account Number</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata"
+                                *ngIf="row?.loanID !== undefined && row?.loanID !== null && row?.loanID !== ''">
+                                Loan ID : {{ row?.loanID}}
+                            </div>
+                            <div *ngIf="row?.loanID === undefined || row?.loanID === null || row?.loanID === ''">
+                                <span>---</span>
+                            </div>
+                            <div class="subText-row-data"
+                                *ngIf="row?.accountNumber !== undefined && row?.accountNumber !== null && row?.accountNumber !== ''">
+                                Ac. No. : {{row?.accountNumber}}
+                            </div>
+                            <div
+                                *ngIf="row?.accountNumber === undefined || row?.accountNumber === null || row?.accountNumber === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Loan Ammount" [width]=125 [sortable]="true" prop="loanAmmount">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                                <span class="fw-bold header-line-height fs-7">Loan Ammount</span>
+                        </ng-template>
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            <div class="mainText-rowdata text-center"
+                                *ngIf="row?.loanAmmount !== undefined && row?.loanAmmount !== null && row?.loanAmmount !== ''">
+                                {{row?.loanAmmount}}
+                            </div>
+                            <div
+                                *ngIf="row?.loanAmmount === undefined || row?.loanAmmount === null || row?.loanAmmount === ''">
+                                ---
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                </ngx-datatable>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

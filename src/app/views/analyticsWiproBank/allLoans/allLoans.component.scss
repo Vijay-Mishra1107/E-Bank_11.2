@@ -1,0 +1,60 @@
+@import '../../.././../styles.css';
+
+::ng-deep .ngx-datatable .datatable-body-cell,
+.ngx-datatable .datatable-header-cell {
+  display: table !important;
+}
+
+::ng-deep .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+  white-space: pre-wrap !important;
+}
+
+.capitalizedLetter {
+  text-transform: capitalize;
+}
+
+.pagerMarginTop {
+  margin-top: 18px !important;
+}
+
+::ng-deep .ngx-datatable.fixed-row .datatable-scroll,
+.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {
+  
+    white-space: pre-line!important;
+    word-break: break-all!important;
+  width: 100% !important;
+}
+
+::ng-deep .ngx-datatable .visible .datatable-body datatable-selection .datatable-scroll .datatable-row-wrapper datatable-body-row .datatable-row-group datatable-body-cell div div{
+  
+    white-space: pre-line!important;
+    word-break: break-all!important;
+  // white-space: nowrap;
+  width: 100% !important;
+}
+
+::ng-deep .egret-navy .ngx-datatable .datatable-footer .datatable-pager .pager .pages.active a{
+  background-color: #27458f !important;;
+  color: #fbfbfb !important;
+ }
+
+::ng-deep .ngx-datatable.scroll-horz .datatable-body {
+  width: 100% !important;
+}
+
+::ng-deep .ngx-datatable.material .datatable-header {
+  white-space: nowrap;
+  width: 100% !important;
+}
+
+.fs-7{
+  font-size: 14px;
+}
+
+.fs-8{
+  font-size: 11px;
+}
+
+.fs-9{
+  font-size: 10px;
+}

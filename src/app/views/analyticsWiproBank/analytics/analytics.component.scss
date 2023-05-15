@@ -1,0 +1,148 @@
+@import '../../.././../styles.css';
+
+::ng-deep .ngx-datatable .datatable-body-cell,
+.ngx-datatable .datatable-header-cell {
+  display: table !important;
+}
+
+::ng-deep .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+  white-space: pre-wrap !important;
+}
+
+.capitalizedLetter {
+  text-transform: capitalize;
+}
+
+.pagerMarginTop {
+  margin-top: 18px !important;
+}
+
+::ng-deep .ngx-datatable.fixed-row .datatable-scroll,
+.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {
+  
+    white-space: pre-line!important;
+    word-break: break-all!important;
+  width: 100% !important;
+}
+
+::ng-deep .ngx-datatable .visible .datatable-body datatable-selection .datatable-scroll .datatable-row-wrapper datatable-body-row .datatable-row-group datatable-body-cell div div{
+  
+    white-space: pre-line!important;
+    word-break: break-all!important;
+  // white-space: nowrap;
+  width: 100% !important;
+}
+
+::ng-deep .egret-navy .ngx-datatable .datatable-footer .datatable-pager .pager .pages.active a{
+  background-color: #27458f !important;;
+  color: #fbfbfb !important;
+ }
+
+::ng-deep .ngx-datatable.scroll-horz .datatable-body {
+  width: 100% !important;
+}
+
+::ng-deep .ngx-datatable.material .datatable-header {
+  white-space: nowrap;
+  width: 100% !important;
+}
+
+.col-search-all {
+  width: 80%;
+
+  > div {
+    width: 70%;
+  }
+}
+
+.col-btn-all {
+  width: 20%;
+}
+
+@media (max-width: 1350px) {
+  .col-search-all {
+    width: 76%;
+
+    > div {
+      width: 80%;
+    }
+  }
+
+  .col-btn-all {
+    width: 24%;
+  }
+}
+
+@media (max-width: 1150px) {
+  .col-search-all {
+    width: 70%;
+
+    > div {
+      width: 92%;
+    }
+  }
+
+  .col-btn-all {
+    width: 30%;
+  }
+}
+
+@media (max-width: 670px) {
+  .col-search-all {
+    width: 100%;
+    > div {
+      width: 100%;
+    }
+  }
+
+  .col-btnd-sm {
+    width: 100%;
+  }
+  // .col-btnu-sm {
+  //   width: 25%;
+  // }
+}
+@media (max-width: 425px) {
+  .col-search-all {
+    width: 100%;
+    > div {
+      width: 100%;
+    }
+  }
+
+  .col-btnd-sm {
+    width: 100%;
+  }
+}
+
+@media (max-width: 350px) {
+  .col-search-all {
+    width: 150%;
+    > div {
+      width: 150%;
+    }
+  }
+
+  .col-btnd-sm {
+    width: 100%;
+  }
+  // .col-btnu-sm {
+  //   width: 50%;
+  // }
+}
+
+@media (max-width: 300px) {
+  .col-search-all {
+    width: 150%;
+    > div {
+      width: 150%;
+    }
+  }
+
+  .col-btnd-sm {
+    width: 100%;
+  }
+  // .col-btnu-sm {
+  //   width: 100%;
+  // }
+}

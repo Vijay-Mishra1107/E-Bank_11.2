@@ -1,0 +1,100 @@
+<div class="container">
+    <mat-card class="main-mat-card">
+        <mat-card-content>
+            <div class="text-end fs-6 fw-bold text-secondary border-bottom border-secondary border-2">
+                <span class="float-start">Account's Manage</span>
+                Account Manager Id.<span class="text-black"> 5456645 </span>
+            </div>
+            <div class="row container  mt-3">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <mat-card class="sub-mat-card">
+                        <mat-card-title class="text-center fs-5 fw-bold">
+                            Freeze Account
+                        </mat-card-title>
+                        <mat-card-content class="text-center">
+                            <img class="Img-icon" src="../../../../assets/images/bank-account-freeze.jpg"
+                                (click)="allPopupOpne(FreezeAccount,AllFacility)" alt="">
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <mat-card class="sub-mat-card">
+                        <mat-card-title class="text-center fs-5 fw-bold">
+                            Unfreeze Account
+                        </mat-card-title>
+                        <mat-card-content class="text-center">
+                            <img class="Img-icon"
+                                src="../../../../assets/images/Digital-banking-platform-making-opt.jpg"
+                                (click)="allPopupOpne(UnFreezeAccount,AllFacility)" alt="">
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <mat-card class="sub-mat-card">
+                        <mat-card-title class="text-center fs-5 fw-bold">
+                            Delete Account
+                        </mat-card-title>
+                        <mat-card-content class="text-center">
+                            <img class="Img-icon" src="../../../../assets/images/delete-account_2.png"
+                                (click)="allPopupOpne(DeleteAccount,AllFacility)" alt="">
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<ng-template #AllFacility>
+    <div fxLayout="row">
+        <div fxFlex="85">
+            <h1 mat-dialog-title>{{FacilityDescription.name}}</h1>
+        </div>
+        <div fxFlex="15" class="text-right">
+            <mat-icon (click)="closePopUp()" matDialogClose class="mouse-pointer-cursor">close</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content>
+        <mat-card>
+            <mat-card-content>
+                <mat-progress-bar *ngIf="showprogressBar" color="primary" mode="indeterminate"></mat-progress-bar>
+                <form class="row needs-validation" [formGroup]="allFacility"
+                    (ngSubmit)="onAllFacility(FacilityDescription)">
+                    <h4 class="fw-bold">Basic Details</h4>
+                    <mat-form-field appearance='outline' class="form-input">
+                        <mat-label><b>Account number</b></mat-label>
+                        <input matInput name="accountNumber" max="10" min="10" maxlength="10" minlength="10" (keyup)="crossCheck($event)" required formControlName="accountNumber"
+                            placeholder="Account number">
+                        <mat-error *ngIf="accountNumber.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+                        <div>
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label><b>Name</b></mat-label>
+                                <input matInput name="userName" formControlName="userName" disabled
+                                    placeholder="Name">
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label><b>Phone No.</b></mat-label>
+                                <input matInput name="phoneNo" formControlName="phoneNo"  maxlength="10" minlength="10" disabled
+                                    placeholder="Phone no.">
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label><b>Email</b></mat-label>
+                                <input matInput name="emailId" formControlName="emailId" disabled placeholder="Email">
+                            </mat-form-field>
+                        </div>
+                    <div class="text-center mt-2">
+                        <button  mat-raised-button type="submit" [class.green]="!allFacility.invalid"
+                            [disabled]="allFacility.invalid" class="btn ps-5 pe-5">{{FacilityDescription.name}}</button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-dialog-content>
+</ng-template>

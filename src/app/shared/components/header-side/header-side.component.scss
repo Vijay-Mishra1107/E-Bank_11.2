@@ -1,0 +1,191 @@
+.side-toggle-btn-icon{
+  color: #40c4ff !important;
+  // height: 10px;
+  // width: 10px;
+  border-radius: 50%;
+}
+
+.avatar-sm {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+  cursor: pointer !important;
+}
+.rounded {
+  border-color: transparent;
+  cursor: pointer !important;
+}
+.roundedProfile {
+  cursor: pointer !important;
+  // padding: 0px 7px 0px 5px;
+  line-height: 60%; //new add
+}
+
+img {
+  max-width: 95%;
+}
+img {
+  vertical-align: middle;
+}
+.header-sideIcon {
+  color: white;
+  background-color: #40c4ff !important;
+  border-radius: 10% !important;
+  border: 1px solid #e3e3e3;
+  width : 40px;
+  height : 40px;
+  font-size: 17px;
+  float: left;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.header-sideIcon-II {
+  color: white;
+  background-color: #40c4ff !important;
+  border-radius: 10% !important;
+  border: 1px solid #e3e3e3;
+  width : 40px;
+  height : 40px;
+  font-size: 17px;
+  float: left;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.input-upper {
+  text-transform: uppercase;
+  padding: 13px !important;
+}
+.topbar-user-info-right-btn {
+  border-color: transparent;
+  cursor: pointer !important;
+  color: #000;
+  width: 225px;
+}
+.text-align-left {
+  text-align: left;
+}
+.align-item-position-center {
+  align-items: center;
+}
+.profile {
+  font-size: 11px;
+  font-weight: bold;
+}
+.role {
+  font-size: 10px;
+}
+
+.user-name-role{
+  width: auto;
+    color: #27458f !important;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.roundedProfileNew {
+  line-height: 100%; //new add
+}
+
+.signout-button-btn {
+  background-color: #27458f !important;
+  color: rgba(244, 244, 244, 0.96) !important;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  height: 50px;
+  line-height: 35px;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  overflow: hidden;
+  width: 18rem;
+  border: none;
+  .item-name-signout, .item-logo-signout{
+    color: #ebebeb !important;
+    font-weight: 500;
+  }
+  
+  button{
+    width: 100%;
+  background-color: #27458f !important;
+  border: none;
+  float: left;
+  text-align: left;
+  align-items: center;
+  .item-logo-signout{
+    margin: 0 8px 0 0;
+  }
+  }
+}
+.signout-btn-button{
+  background-color: #27458f !important;
+  color: rgba(244, 244, 244, 0.96) !important;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  height: 64px;
+  line-height: 39px;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  overflow: hidden;
+  border: none;
+  .item-name-signout, .item-logo-signout{
+    color: #ebebeb !important;
+    font-weight: 500;
+  }
+  
+  button{
+    width: 100%;
+  background-color: #27458f !important;
+  border: none;
+  float: left;
+  text-align: left;
+  align-items: center;
+  .item-logo-signout{
+    margin: 0 8px 0 0;
+  }
+  }
+}
+.brand{
+color: #27458f;
+font-weight: 900 !important;
+margin-left: 5px;
+}
+.edit-btn{
+  background: #fbfbfb !important;
+  color: #27458f !important;
+}
+.breadcrumb{
+  li{
+    button{
+      cursor: default;
+    }
+    button:hover{
+      cursor: default;
+      background-color: none;
+    }
+  }
+}
+
+@media (max-width: 500px){
+  .topbar-user-info-right-btn {
+    border-color: transparent;
+    cursor: pointer !important;
+    color: #000;
+    width: 13%;
+  }
+  .col-d-none{
+    display: none;
+  }
+}

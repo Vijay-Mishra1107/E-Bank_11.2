@@ -1,0 +1,204 @@
+<mat-card class="ms-0 me-0 mt-0">
+    <div class="row">
+        <div class="fw-bold details">Personal Details:</div>
+        <div class="col-300 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3"><b>Ac.No.: </b><span
+                class="details-fonts fs-9">{{allClientList?.accountNumber}}</span></div>
+        <div class="col-300 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3"><b>Name: </b><span
+                class="details-fonts fs-9">{{allClientList?.username }}</span></div>
+        <div class="col-300 col-6 col-sm-5 col-md-4 col-lg-3 col-xl-3"><b>Phone: </b><span
+                class="details-fonts fs-9">{{allClientList?.phone}}</span></div>
+        <div class="col-300 col-6 col-sm-7 col-md-4 col-lg-3 col-xl-3"><b>Email: </b><span
+                class="details-fonts fs-9">{{allClientList?.email}}</span></div>
+        <hr>
+        <div class="fw-bold details">Loan Details:</div>
+        <div class="col-300 col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"><b>Issue Date: </b><span
+                class="details-fonts fs-9">{{allClientList?.loanIssueDate | date : "longDate"}}</span></div>
+        <div class="col-300 col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"><b>Issue Till: </b><span
+                class="details-fonts fs-9">{{allClientList?.loanIssueTill | date : "longDate"}}</span></div>
+
+        <div class="col-300 col-6 col-sm-5 col-md-4 col-lg-3 col-xl-4"><b>ID: </b><span
+                class="details-fonts fs-9">{{allClientList?.loanID}}</span></div>
+        <div class="col-300 col-6 col-sm-5 col-md-4 col-lg-4 col-xl-4"><b>Ammount: </b><span
+                class="details-fonts fs-9">{{allClientList?.loanAmmount}}</span></div>
+
+        <div class="col-300 col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2"><b>Years: </b><span
+                class="details-fonts fs-9">{{allClientList?.loanYears}}</span></div>
+        <div class="col-300 col-3 col-sm-4 col-md-2 col-lg-3 col-xl-2"><b>Type: </b><span
+                class="details-fonts fs-9">{{allClientList?.loanType | titlecase}}</span></div>
+
+        <div class="col-300 col-3 col-sm-4 col-md-3 col-lg-3 col-xl-4"><b>Panelty: </b><span
+                class="details-fonts fs-9">{{allClientList?.totalPanelty}}</span></div>
+        <div class="col-300 col-3 col-sm-4 col-md-3 col-lg-3 col-xl-2"><b>Status: </b><span
+                class="details-fonts fs-9">{{allClientList?.status}}</span></div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5"><b>reason: </b><span
+                class="details-fonts fs-9">{{allClientList?.reason}}</span></div>
+    </div>
+</mat-card>
+
+<mat-card class="m-0 p-0">
+    <ngx-datatable class="material striped full-width" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+        [rowHeight]="50" [scrollbarH]="true" [scrollbarV]="true" [rows]="allClientList?.emi" [limit]="10"
+        [sorts]="[{prop: 'name', dir: 'desc'}]" style="height: 60vh">
+
+        <ngx-datatable-column name="Sr.No." [sortable]="false" [frozenLeft]="true" [width]=90 [canAutoResize]="false"
+            [resizeable]="false">
+            <ng-template let-column="column" ngx-datatable-header-template>
+                <span class="text-center fw-bold header-line-height fs-8">Sr.No.</span>
+            </ng-template>
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <span class="fs-9">{{rowIndex+1}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="EMI Submite Date" [width]=100 [sortable]="true" prop="emiSubmiteDate">
+            <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="fw-bold header-line-height fs-8">EMI Submite<br>Date</span>
+            </ng-template>
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <div class="fs-9" *ngIf="row?.emiSubmiteDate !== undefined && row?.emiSubmiteDate !== null && row?.emiSubmiteDate !== ''">
+                    {{row?.emiSubmiteDate}}
+                </div>
+                <div class="text-center"
+                    *ngIf="row?.emiSubmiteDate === undefined || row?.emiSubmiteDate === null || row?.emiSubmiteDate === ''">
+                    ---
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="EMI ID" [width]=100 [sortable]="true" prop="id">
+            <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="fw-bold header-line-height fs-8">EMI ID</span>
+            </ng-template>
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <div class="fs-9" *ngIf="row?.id !== undefined && row?.id !== null && row?.id !== ''">
+                    {{row?.id}}
+                </div>
+                <div *ngIf="row?.id === undefined || row?.id === null || row?.id === ''">
+                    ---
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Amount Remaning" [width]=160 [sortable]="true" prop="amountRemaning">
+            <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="fw-bold header-line-height fs-8">Amount Remaning</span>
+            </ng-template>
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <div class="fs-9" *ngIf="row?.amountRemaning !== undefined && row?.amountRemaning !== null && row?.amountRemaning !== ''">
+                    {{row?.amountRemaning}}
+                </div>
+                <div *ngIf="row?.amountRemaning === undefined || row?.amountRemaning === null || row?.amountRemaning === ''">
+                    ---
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="EMI Ammount" [width]=130 [sortable]="true" prop="emiAmmount">
+            <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="fw-bold header-line-height fs-8">EMI Ammount</span>
+            </ng-template>
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <div class="fs-9" *ngIf="row?.emiAmmount !== undefined && row?.emiAmmount !== null && row?.emiAmmount !== ''">
+                    {{row?.emiAmmount}}
+                </div>
+                <div *ngIf="row?.emiAmmount === undefined || row?.emiAmmount === null || row?.emiAmmount === ''">
+                    ---
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Next EMI" [width]=190 [sortable]="true" prop="nextEmi">
+            <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="fw-bold header-line-height fs-8">Next EMI</span>
+            </ng-template>
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <div class="fs-9" *ngIf="row?.nextEmi !== undefined && row?.nextEmi !== null && row?.nextEmi !== ''">
+                    {{row?.nextEmi | date : "fullDate"}}
+                </div>
+                <div *ngIf="row?.nextEmi === undefined || row?.nextEmi === null || row?.nextEmi === ''">
+                    ---
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="EMI Status" [width]=90 [sortable]="true" prop="status">
+            <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="fw-bold header-line-height fs-8">EMI Status</span>
+            </ng-template>
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <div class="fs-9" *ngIf="row?.status !== undefined && row?.status !== null && row?.status !== ''">
+                    <span class="fw-bold"
+                        [ngClass]="(row?.status !== 'unpaid')? 'text-success' : 'text-warning'">{{row?.status |
+                        uppercase}}</span>
+                </div>
+                <div *ngIf="row?.status === undefined || row?.status === null || row?.status === ''">
+                    ---
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Pay EMI" [width]=80 [sortable]="false">
+            <ng-template let-column="column" ngx-datatable-header-template>
+                <div class="text-center">
+                    <span class="fw-bold header-line-height fs-8">Pay EMI</span>
+                </div>
+            </ng-template>
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <div class="text-center">
+                    <button class="fs-6" *ngIf="(row?.status !== 'paid')" mat-icon-button mat-sm-button
+                        (click)="allPopupOpne(row, payEmi)" color="accent"><i
+                            class="fas fs-6 fa-money-check-alt"></i></button>
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</mat-card>
+
+<ng-template #payEmi>
+    <div fxLayout="row">
+        <div fxFlex="85">
+            <h1 mat-dialog-title class="mb-0">Pay EMI</h1>
+        </div>
+        <div fxFlex="15" class="text-right">
+            <mat-icon (click)="closePopUp()" matDialogClose class="mouse-pointer-cursor">close</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content>
+        <mat-card>
+            <form class="row" [formGroup]="payEmiForm">
+                <h4 class="fw-bold">Basic Details</h4>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <mat-form-field appearance='outline' class="form-input full-width">
+                        <mat-label><b>Loan Id</b></mat-label>
+                        <input matInput name="loanId" aria-autocomplete="none" autocomplete="off" maxlength="10"
+                            minlength="10" autocapitalize="off" required formControlName="loanId" placeholder="Loan Id">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <mat-form-field appearance='outline' class="form-input full-width">
+                        <mat-label><b>Amount</b></mat-label>
+                        <input matInput name="amount" aria-autocomplete="none" type="number" autocomplete="off"
+                            autocapitalize="off" required formControlName="amount" placeholder="Amount">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label><b>Password</b></mat-label>
+                        <input matInput name="password" required formControlName="password" aria-autocomplete="none"
+                            autocapitalize="off" autocomplete="off" [type]="hide ? 'password' : 'text'"
+                            placeholder="Password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="password.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                <button mat-raised-button type="submit" color="primary" (click)="PayEMI()"
+                    [disabled]="payEmiForm.invalid" class="btn ps-5 pe-5">pay</button>
+            </div>
+        </mat-card>
+    </mat-dialog-content>
+</ng-template>

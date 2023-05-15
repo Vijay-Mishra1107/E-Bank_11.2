@@ -1,0 +1,142 @@
+
+<div class="login-container" [ngClass]="status ? 'sign-up-mode' : 'doceazy-login-page'">
+  <div class="forms-login-container">
+    <div class="signin-signup">
+      <div *ngIf="!formType" class="sign-in-form">
+        <form [formGroup]="signinForm" (ngSubmit)="signin()">
+          <h3 class="title"><span>Bank Users</span></h3>
+          <h4 class="sub-title fw-bold">Login</h4>
+          <div class="all-input-field">
+            <div class="input-field">
+              <i class="fas fa-users"></i>
+              <input class="mb-0" #txtInput (keydown.escape)="txtInput.blur()" matInput name="email" required
+                [formControl]="signinForm.controls['email']" placeholder="Email Address" oncopy="return false"
+                autocomplete="off" onpaste="return false" value="" type="email" />
+            </div>
+          </div>
+          <div *ngIf="signinForm.controls['email'].hasError('required') && signinForm.controls['email'].touched"
+            class="requided-error">Email is required</div>
+          <!-- <div *ngIf="signinForm.controls['email'].hasError('pattern') && signinForm.controls['email'].touched"
+            class="requided-error">Please Enter Valid Email</div> -->
+          <div class="all-input-field">
+            <div class="input-field">
+              <i class="fas fa-user-lock"></i>
+              <input class="mb-0" type="password" name="password" matInput required
+                [formControl]="signinForm.controls['password']" placeholder="Password" oncopy="return false"
+                onpaste="return false" autocomplete="off" maxlength="128" value="" />
+            </div>
+          </div>
+          <div *ngIf="signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched"
+            class="requided-error">Password is required</div>
+          <!-- <div *ngIf="signinForm.controls['password'].hasError('pattern') && signinForm.controls['password'].touched"
+            class="requided-error">Please Enter Valid Password</div> -->
+          <br>
+          <div class="all-input-field">
+            <button mat-raised-button type="submit" [disabled]="signinForm.invalid"
+              [ngClass]="signinForm.invalid? 'disabled-btn-login' : 'btn solid'" class="">Login</button>
+            <p class="social-text">Watch <b style="color: #27458f">E-Bank</b> on social media.</p>
+            <div class="social-media">
+              <a mat-icon-button color="primary" target="_blank" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a mat-icon-button color="primary" target="_blank" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a mat-icon-button color="primary" target="_blank" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="formType" class="sign-in-form">
+        <form [formGroup]="signinForm" (ngSubmit)="signin()">
+          <h3 class="title"><span>Bank Admin</span></h3>
+          <h4 class="sub-title fw-bold">Login</h4>
+          <div class="all-input-field">
+            <div class="input-field">
+              <i class="fas fa-users"></i>
+              <input class="mb-0" #txtInput (keydown.escape)="txtInput.blur()" matInput name="email" required
+                [formControl]="signinForm.controls['email']" placeholder="Email Address" oncopy="return false"
+                autocomplete="off" onpaste="return false" value="" type="email" />
+            </div>
+          </div>
+          <div *ngIf="signinForm.controls['email'].hasError('required') && signinForm.controls['email'].touched"
+            class="requided-error">Email is required</div>
+          <!-- <div *ngIf="signinForm.controls['email'].hasError('pattern') && signinForm.controls['email'].touched"
+            class="requided-error">Please Enter Valid Email</div> -->
+          <div class="all-input-field">
+            <div class="input-field">
+              <i class="fas fa-user-lock"></i>
+              <input class="mb-0" type="password" name="password" matInput required
+                [formControl]="signinForm.controls['password']" placeholder="Password" oncopy="return false"
+                onpaste="return false" autocomplete="off" maxlength="128" value="" />
+            </div>
+          </div>
+          <div *ngIf="signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched"
+            class="requided-error">Password is required</div>
+          <!-- <div *ngIf="signinForm.controls['password'].hasError('pattern') && signinForm.controls['password'].touched"
+            class="requided-error">Please Enter Valid Password</div> -->
+          <br>
+          <div class="all-input-field">
+            <button mat-raised-button type="submit" [disabled]="signinForm.invalid"
+              [ngClass]="signinForm.invalid? 'disabled-btn-login' : 'btn solid'" class="">Login</button>
+            <p class="social-text">Watch <b style="color: #27458f">E-Bank</b> on social media.</p>
+            <div class="social-media">
+              <a mat-icon-button color="primary" target="_blank" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a mat-icon-button color="primary" target="_blank" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a mat-icon-button color="primary" target="_blank" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="panels-login-container">
+    <div class="panel left-panel">
+      <div class="content">
+        <h3 class="content-title">
+          <img src="../../../../assets/images/E-Bank-new-I-removebg.png" style="height: 60px; width: 60px; border-radius: 4px;"
+            alt=""><span>E-Bank Pvt. Ltd.</span>
+        </h3>
+        <p class="m-0 p-0">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium voluptas laboriosam, natus similique
+          consectetur porro eos unde temporibus. Tempore veritatis laboriosam dolor ullam cumque officia debitis impedit
+          molestiae saepe nesciunt?
+        </p>
+        <span class="fw-bold fs-6">Click below & login as Bank Admin</span>
+        <br>
+        <button mat-raised-button class="btn transparent mt-2" (click)="clickEvent()">
+          Admin
+        </button>
+      </div>
+      <img src="../../../../assets/images/banner-img.png" class="image" alt="" />
+    </div>
+    <div class="panel right-panel">
+      <div class="content">
+        <h3 class="content-title">
+          <img src="../../../../assets/images/E-Bank-new-I-removebg.png" style="height: 60px; width: 60px; border-radius: 4px;"
+            alt=""> <span>E-Bank Pvt. Ltd.</span>
+        </h3>
+        <p class="m-0 p-0">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium voluptas laboriosam, natus similique
+          consectetur porro eos unde temporibus. Tempore veritatis laboriosam dolor ullam cumque officia debitis impedit
+          molestiae saepe nesciunt?
+        </p>
+        <span class="fw-bold fs-6">Click below & login as Bank Users</span>
+        <br>
+        <button mat-raised-button class="btn transparent mt-2" (click)="clickEvent()">
+          Users
+        </button>
+      </div>
+      <img src="../../../../assets/images/banner-img.png" class="image" alt="" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<mat-card class="p-0 m-0">
+    <mat-card-content class="p-0">
+        <ngx-datatable #myTable class="material expandable striped full-width" [columnMode]="'force'"
+            [headerHeight]="55" [footerHeight]="50" [rowHeight]="80" [scrollbarH]="true" [scrollbarV]="true"
+            [rows]="transactionList" [limit]="10" [sorts]="[{prop: 'name', dir: 'desc'}]" style="height: 85.5vh !important;">
+
+            <ngx-datatable-column name="Sr.No." [sortable]="false" [frozenLeft]="true" [width]=90
+                [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Sr.No.</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    {{rowIndex+1}}
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Date" [sortable]="true" [width]=200 prop="date">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Date & Time</span>
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="mainText-rowdata"
+                        *ngIf="row?.date !== undefined && row?.date !== null && row?.date !== ''">
+                        {{ row?.date }}
+                    </div>
+                    <div *ngIf="row?.date === undefined || row?.date === null || row?.date === ''">
+                        <span>---</span>
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Type" [width]=140 [sortable]="true" prop="type">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Type</span>
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data" *ngIf="row?.type !== undefined && row?.type !== null && row?.type !== '' ">
+                        {{row?.type}}
+                    </div>
+                    <div *ngIf="row?.type === undefined || row?.type === null || row?.type === '' ">
+                        <span>---</span>
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Debit" [width]=110 [sortable]="true" prop="debit">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Debit</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data text-cente"
+                        *ngIf="row?.debit !== undefined && row?.debit !== null && row?.debit !== ''">
+                        {{row?.debit}}
+                    </div>
+                    <div *ngIf="row?.debit === undefined || row?.debit === null || row?.debit === ''">
+                        ---
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Credit" [width]=110 [sortable]="true" prop="credit">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Credit</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data text-cente"
+                        *ngIf="row?.credit !== undefined && row?.credit !== null && row?.credit !== ''">
+                        {{row?.credit}}
+                    </div>
+                    <div *ngIf="row?.credit === undefined || row?.credit === null || row?.credit === ''">
+                        ---
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="To" [width]=110 [sortable]="true" prop="to">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">To</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data text-cente"
+                        *ngIf="row?.to !== undefined && row?.to !== null && row?.to !== ''">
+                        {{row?.to}}
+                    </div>
+                    <div *ngIf="row?.to === undefined || row?.to === null || row?.to === ''">
+                        ---
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Balance" [width]=110 [sortable]="true" prop="balance">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span class="text-center fw-bold header-line-height fs-6">Balance</span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <div class="row-data text-cente"
+                        *ngIf="row?.balance !== undefined && row?.balance !== null && row?.balance !== ''">
+                        {{row?.balance}}
+                    </div>
+                    <div *ngIf="row?.balance === undefined || row?.balance === null || row?.balance === ''">
+                        ---
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+
+        </ngx-datatable>
+    </mat-card-content>
+</mat-card>

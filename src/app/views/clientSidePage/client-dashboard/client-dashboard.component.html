@@ -1,0 +1,405 @@
+<div class="container">
+    <mat-card class="main-mat-card">
+        <mat-card-content>
+            <div class="text-end fs-6 fw-bold text-secondary border-bottom border-secondary border-2">
+                <span class="float-start">My seving account</span>
+                Account No.<span *ngIf="ClientInfo !== null" class="text-black"> {{ClientInfo.account}} </span>
+            </div>
+            <div class="row container  mt-3">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <mat-card class="sub-mat-card sub-mat-card-balance p-2">
+                        <mat-card-title *ngIf="!viewBalance" class="text-center fs-5 m-0 p-0 fw-bold">
+                            View Balance
+                        </mat-card-title>
+                        <mat-card-title *ngIf="viewBalance" class="text-center fs-5 m-0 p-0 fw-bold">
+                            Hidde Balance
+                        </mat-card-title>
+                        <mat-card-content class="m-0 p-0">
+                            <div *ngIf="viewBalance" class="text-center fs-6 text-success fw-bold p-0">
+                                {{ Balance }}
+                            </div>
+                            <div class="text-center button-icon">
+                                <button *ngIf="!viewBalance" mat-icon-button color="primary" class="btn"
+                                    (click)="getViewBalance()">
+                                    <mat-icon>visibility</mat-icon>
+                                </button>
+                                <button *ngIf="viewBalance" mat-icon-button color="primary" class="btn"
+                                    (click)="hiddeViewBalance()">
+                                    <mat-icon>visibility_off</mat-icon>
+                                </button>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <mat-card class="sub-mat-card">
+                        <mat-card-title class="text-center fs-5 fw-bold">
+                            Send Money
+                        </mat-card-title>
+                        <mat-card-content class="text-center">
+                            <img class="Img-icon" src="../../../../assets/images/Send-money.webp"
+                                (click)="allPopupOpne(SendMoneyT)" alt="">
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <mat-card class="sub-mat-card">
+                        <mat-card-title class="text-center fs-5 fw-bold">
+                            Withdrawal Money
+                        </mat-card-title>
+                        <mat-card-content class="text-center">
+                            <img class="Img-icon" src="../../../../assets/images/withdraw-money.jpeg"
+                                (click)="allPopupOpne(WithdrawalMoney)" alt="">
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <mat-card class="sub-mat-card">
+                        <mat-card-title class="text-center fs-5 fw-bold">
+                            Deposite Money
+                        </mat-card-title>
+                        <mat-card-content class="text-center">
+                            <img class="Img-icon" src="../../../../assets/images/deposit-money.jpg"
+                                (click)="allPopupOpne(DepositeMoney)" alt="">
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <mat-card class="sub-mat-card">
+                        <mat-card-title class="text-center fs-5 fw-bold">
+                            Request Check Book
+                        </mat-card-title>
+                        <mat-card-content class="text-center">
+                            <img class="Img-icon" src="../../../../assets/images/check-book.jpg"
+                                (click)="allPopupOpne(RequestCheckBook)" alt="">
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <mat-card class="sub-mat-card">
+                        <mat-card-title class="text-center fs-5 fw-bold">
+                            Apply for Loan
+                        </mat-card-title>
+                        <mat-card-content class="text-center">
+                            <img class="Img-icon" src="../../../../assets/images/personal-loan-online(2).jpg"
+                                (click)="applyForLoanPopupOpne(ApplyForLoan)" alt="">
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+<ng-template #SendMoneyT>
+    <div fxLayout="row">
+        <div fxFlex="85">
+            <h1 mat-dialog-title>Send Money</h1>
+        </div>
+        <div fxFlex="15" class="text-right">
+            <mat-icon (click)="closePopUp()" matDialogClose class="mouse-pointer-cursor">close</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content>
+        <mat-card class="p-0">
+            <mat-card-content class="">
+                <form class="row g-3 container needs-validation" [formGroup]="sendMoney">
+                    <h4 class="fw-bold">Basic Details</h4>
+                    <mat-form-field appearance='outline' class="form-input">
+                        <mat-label><b>Account number</b></mat-label>
+                        <input matInput name="account" aria-autocomplete="none" autocomplete="off" maxlength="10"
+                            minlength="10" autocapitalize="off" required formControlName="account"
+                            placeholder="Account number">
+                        <mat-error *ngIf="account.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance='outline' class="form-input">
+                        <mat-label><b>Amount</b></mat-label>
+                        <input matInput name="amount" aria-autocomplete="none" type="number" autocomplete="off"
+                            autocapitalize="off" required formControlName="amount" placeholder="Amount">
+                        <mat-error *ngIf="amount.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label><b>Password</b></mat-label>
+                        <input matInput name="password" required formControlName="password" aria-autocomplete="none"
+                            autocapitalize="off" autocomplete="off" [type]="hide ? 'password' : 'text'"
+                            placeholder="Password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="password.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+                    <div class="text-center mt-5">
+                        <button mat-raised-button type="submit" color="primary" (click)="onSendMoney()"
+                            [disabled]="sendMoney.invalid" class="btn ps-5 pe-5">Send Money</button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-dialog-content>
+</ng-template>
+
+<ng-template #WithdrawalMoney>
+    <div fxLayout="row">
+        <div fxFlex="85">
+            <h1 mat-dialog-title>Withdrawal Money</h1>
+        </div>
+        <div fxFlex="15" class="text-right">
+            <mat-icon (click)="closePopUp()" matDialogClose class="mouse-pointer-cursor">close</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content>
+        <mat-card class="p-0">
+            <mat-card-content class="">
+                <form class="row g-3 container needs-validation" [formGroup]="withdrawalMoney">
+                    <h4 class="fw-bold">Basic Details</h4>
+                    <mat-form-field appearance='outline' class="form-input">
+                        <mat-label><b>Amount</b></mat-label>
+                        <input matInput name="AmountRs" required type="number" formControlName="AmountRs"
+                            placeholder="Amount">
+                        <mat-error *ngIf="AmountRs.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label><b>Password</b></mat-label>
+                        <input matInput name="PasswordPin" required formControlName="PasswordPin"
+                            [type]="hide ? 'password' : 'text'" placeholder="Password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="PasswordPin.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+                    <div class="text-center mt-5">
+                        <button mat-raised-button type="submit" color="primary" (click)="onWithdrawalMoney()"
+                            [disabled]="withdrawalMoney.invalid" class="btn ps-5 pe-5">Withdrawal Money</button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-dialog-content>
+</ng-template>
+
+<ng-template #DepositeMoney>
+    <div fxLayout="row">
+        <div fxFlex="85">
+            <h1 mat-dialog-title>Deposite Money</h1>
+        </div>
+        <div fxFlex="15" class="text-right">
+            <mat-icon (click)="closePopUp()" matDialogClose class="mouse-pointer-cursor">close</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content>
+        <mat-card class="p-0">
+            <mat-card-content class="">
+                <form class="row g-3 container needs-validation" [formGroup]="depositeMoney">
+                    <h4 class="fw-bold">Basic Details</h4>
+                    <mat-form-field appearance='outline' class="form-input">
+                        <mat-label><b>Amount</b></mat-label>
+                        <input matInput name="depositeAmount" type="number" required formControlName="depositeAmount"
+                            placeholder="Amount">
+                        <mat-error *ngIf="depositeAmount.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label><b>Password</b></mat-label>
+                        <input matInput name="depositePassword" required formControlName="depositePassword"
+                            [type]="hide ? 'password' : 'text'" placeholder="Password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="depositePassword.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+                    <div class="text-center mt-5">
+                        <button mat-raised-button type="submit" color="primary" (click)="onDepositeMoney()"
+                            [disabled]="depositeMoney.invalid" class="btn ps-5 pe-5">Deposite Money</button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-dialog-content>
+</ng-template>
+
+<ng-template #RequestCheckBook>
+    <div fxLayout="row">
+        <div fxFlex="85">
+            <h1 mat-dialog-title>Request Check-Book</h1>
+        </div>
+        <div fxFlex="15" class="text-right">
+            <mat-icon (click)="closePopUp()" matDialogClose class="mouse-pointer-cursor">close</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content>
+        <mat-card class="p-0">
+            <mat-card-content class="">
+                <form class="row g-3 container needs-validation" [formGroup]="requestCheckBook">
+                    <h4 class="fw-bold">Basic Details</h4>
+
+                    <mat-form-field appearance='outline' class="form-input">
+                        <mat-label><b>Name</b></mat-label>
+                        <input matInput name="name" required formControlName="name" autocomplete="off"
+                            placeholder="Name">
+                        <mat-error *ngIf="name.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance='outline' class="form-input">
+                        <mat-label><b>Address</b></mat-label>
+                        <input matInput name="address" required formControlName="address" autocomplete="off"
+                            placeholder="Address">
+                        <mat-error *ngIf="address.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label><b>Password</b></mat-label>
+                        <input matInput name="Password" required formControlName="Password"
+                            [type]="hide ? 'password' : 'text'" autocomplete="off" placeholder="Password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="Password.invalid">This fields is required.</mat-error>
+                    </mat-form-field>
+                    <div class="text-center mt-5">
+                        <button mat-raised-button type="submit" color="primary" (click)="onRequestCheckBookMoney()"
+                            [disabled]="requestCheckBook.invalid" class="btn ps-5 pe-5">Request CheckBook</button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-dialog-content>
+</ng-template>
+
+<ng-template #ApplyForLoan>
+    <div fxLayout="row">
+        <div fxFlex="85">
+            <h1 mat-dialog-title>Apply For Loan</h1>
+        </div>
+        <div fxFlex="15" class="text-right">
+            <mat-icon (click)="closePopUp()" matDialogClose class="mouse-pointer-cursor">close</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content>
+        <mat-card>
+            <mat-card-content class="">
+                <form class="row" [formGroup]="applyForLoan">
+                    <h4 class="fw-bold">Basic Details</h4>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label class='font'><b>Loan Type</b></mat-label>
+                            <mat-select required name="loanType" (selectionChange)="checkEditType()" formControlName="loanType">
+                                <mat-option *ngFor="let option of LoanType" [value]="option.value">
+                                    {{option.loanType}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="loanType.invalid">This fields is required.</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="m-0 p-0"></div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <mat-form-field appearance='outline' class="full-width">
+                            <mat-label><b>Name</b></mat-label>
+                            <input matInput name="Name" required formControlName="Name" autocomplete="off"
+                                placeholder="Name">
+                            <mat-error *ngIf="Name.invalid">This fields is required.</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <mat-form-field appearance='outline' class="full-width">
+                            <mat-label><b>Account Number</b></mat-label>
+                            <input matInput name="accountNumber" required formControlName="accountNumber"
+                                autocomplete="off" placeholder="Account Number" (keypress)="(($event.charCode >= 48) && ($event.charCode < 58))" />
+                            <mat-error *ngIf="accountNumber.invalid">This fields is required.</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <mat-form-field appearance='outline' class="full-width">
+                            <mat-label><b>Mobile Number</b></mat-label>
+                            <input matInput name="phone" required formControlName="phone" maxlength="10" minlength="10" autocomplete="off"
+                                placeholder="Mobile Number"  (keypress)="(($event.charCode >= 48) && ($event.charCode < 58))" />
+                            <mat-error *ngIf="phone.invalid">This fields is required.</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <mat-form-field appearance='outline' class="full-width">
+                            <mat-label><b>Amount</b></mat-label>
+                            <input matInput name="Amount" required formControlName="Amount" placeholder="Amount" 
+                            (keyup)="checkEditAmount($event)" type="text" (keypress)="(($event.charCode >= 48) && ($event.charCode < 58))" />
+                            <mat-error *ngIf="Amount.invalid">This fields is required.</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <mat-form-field appearance='outline' class="full-width">
+                            <mat-label><b>loanTime</b></mat-label>
+                            <input matInput name="loanTime" type="number" required formControlName="loanTime"
+                                autocomplete="off" placeholder="Loan Time" min="1" max="10" (keyup)="checkEditLoanTime($event)"/>
+                            <mat-error *ngIf="loanTime.invalid">This fields is required.</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label class='font'><b>Loan Time Type</b></mat-label>
+                            <mat-select required name="loanTimeType" formControlName="loanTimeType">
+                                <mat-option *ngFor="let option of LoanTimeType" [value]="option.value">
+                                    {{option.loanTimeType}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="loanTimeType.invalid">This fields is required.</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <mat-form-field appearance='outline' class="full-width">
+                            <mat-label><b>After Loan Amount</b></mat-label>
+                            <input matInput name="afterLoanAmount" required formControlName="afterLoanAmount"
+                                autocomplete="off" placeholder="After Loan Amount">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label class='font'><b>Iinstallment Time</b></mat-label>
+                            <mat-select required name="installmentTime" formControlName="installmentTime">
+                                <mat-option *ngFor="let option of IinstallmentTime" [value]="option.value">
+                                    {{option.installmentTime}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="installmentTime.invalid">This fields is required.</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <mat-form-field appearance='outline' class="full-width">
+                            <mat-label><b>Address</b></mat-label>
+                            <input matInput name="Address" required formControlName="Address" autocomplete="off"
+                                placeholder="Address">
+                            <mat-error *ngIf="Address.invalid">This fields is required.</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <mat-form-field appearance='outline' class="full-width">
+                            <mat-label>Reason</mat-label>
+                            <textarea name="reason" style="max-height: 100px;" formControlName="reason" matInput placeholder="Reason"></textarea>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="text-center mt-5">
+                        <button mat-raised-button color="primary" (click)="onApplyForLoan()"
+                            [disabled]="applyForLoan.invalid" class="btn ps-5 pe-5">Apply</button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-dialog-content>
+</ng-template>

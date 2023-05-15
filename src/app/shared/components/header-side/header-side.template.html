@@ -1,0 +1,145 @@
+<mat-toolbar class="topbar">
+  <!-- Sidenav toggle button -->
+
+  <button mat-icon-button id="sidenavToggle" (click)="toggleCollapse()" class="fixed-top side-toggle-btn-icon">
+    <i *ngIf="layoutConf.sidebarStyle === 'compact'" class="side-toggle-btn-ico fas fs-5 fa-chevron-circle-right"></i>
+    <i *ngIf="layoutConf.sidebarStyle !== 'compact'" class="side-toggle-btn-ico fas fs-5 fa-chevron-circle-left"></i>
+  </button>
+  
+  <div class="breadcrumb-bar">
+    <ul class="breadcrumb p-0 m-0">
+      <li *ngIf="!LinkUrl" class="p-0 m-0">
+        <button mat-flat-button class="p-0 mt-0 mb-2 me-0 ms-0">
+          <mat-icon class="edit-btn pb-0 mb-0 me-2">{{Icon}}</mat-icon>
+          <b class="fs-6 pt-0 mt-0"> {{Path}} > {{View}}</b>
+        </button>
+      </li>
+      <li *ngIf="LinkUrl && !image">
+        <button mat-flat-button class="p-0 mt-0 mb-2 me-0 ms-0">
+          <mat-icon class="edit-btn pb-0 mb-0 me-2">{{Icon}}</mat-icon>
+          <b class="fs-6 pt-0 mt-0"> {{View}}</b>
+        </button>
+      </li>
+      <li *ngIf="LinkUrl && image">
+        <button mat-flat-button class="p-0 mt-0 mb-2 me-0 ms-0">
+          <img class="edit-btn me-1" src="{{image_URL}}" height="25" width="25" alt="Dashboard" srcset="">
+          <b class="fs-6 pt-0 mt-0"> {{View}}</b>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <span fxFlex></span>
+
+  <button *ngIf="clientUser!=='' && clientUser !==null && clientUser !== undefined && adminUser === null " [matMenuTriggerFor]="clientMenu"
+    class="topbar-button-right img-button rounded roundedProfile topbar-user-info-right-btn">
+    <div fxLayout="row wrap" class="text-align-left align-item-position-center">
+      <div fxFlex="80" class="col-d-none">
+        <span *ngIf="clientUser.name !== undefined" class="m-0 mr-2 pr-8 font-weight-normal profile-name profile">Hi, {{clientUser.name}}</span><br />
+        <span *ngIf="clientUser.type !== undefined">
+          <span class="role" *ngIf="clientUser.type !== undefined">Role - {{ clientUser.type | titlecase }}</span>
+        </span>
+      </div>
+      <div fxFlex="20" class="pr-1 text-center">
+        <img class="avatar-sm rounded-circle" *ngIf="clientUser.profilePic !==undefined"
+          src="{{clientUser.profilePic}}">
+        <span class="header-sideIcon fs-5 fw-bold mr-1 input-upper"
+          *ngIf="clientUser.name !== undefined && clientUser.profilePic === undefined">{{clientUser.name[0]}}</span>
+      </div>
+    </div>
+    <!-- <div class="ripple-container"></div> -->
+  </button>
+
+  <button *ngIf="adminUser!=='' && adminUser !==null && adminUser !== undefined && clientUser === null" 
+    [matMenuTriggerFor]="adminMenu" class="topbar-button-right img-button img-button roundedProfile rounded topbar-user-info-right-btn">
+    <div fxLayout="row wrap" class="text-align-left align-item-position-center">
+      <div fxFlex="80" class="col-d-none">
+        <span *ngIf="adminUser.name !== undefined" class="m-0 mr-2 pr-8 font-weight-normal profile-name profile">Hi, {{adminUser.name}}</span><br />
+        <span *ngIf="adminUser.role !== undefined">
+          <span class="role" *ngIf="adminUser.role !== undefined">Role - {{ adminUser.role | titlecase }}</span>
+        </span>
+      </div>
+      <div fxFlex="20" class="pr-1 text-center">
+        <img class="avatar-sm rounded-circle" *ngIf="adminUser.profilePic !== undefined" src="{{adminUser.profilePic}}">
+        <span class="header-sideIcon fs-5 fw-bold mr-1 input-upper"
+          *ngIf="adminUser.name !== undefined && adminUser.profilePic === undefined">{{adminUser.name[0]}}</span>
+      </div>
+    </div>
+    <!-- <div class="ripple-container"></div> -->
+  </button>
+
+  <mat-menu #adminMenu="matMenu">
+      <button mat-menu-item (click)="jwtAuth.signout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Sign out</span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #clientMenu="matMenu">
+    <button mat-menu-item (click)="forgotPassword(ResetPassword)">
+      <mat-icon>manage_accounts</mat-icon>
+      <span>Forgot Password</span>
+    </button>
+    <button mat-menu-item (click)="jwtAuth.signout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Sign out</span>
+    </button>
+  </mat-menu>
+
+</mat-toolbar>
+
+<ng-template #ResetPassword>
+  <div fxLayout="row">
+    <div fxFlex="85">
+      <h1 mat-dialog-title>Reset Password</h1>
+    </div>
+    <div fxFlex="15" class="text-right">
+      <mat-icon (click)="closePopUp()" matDialogClose class="mouse-pointer-cursor">close</mat-icon>
+    </div>
+  </div>
+  <mat-dialog-content>
+    <mat-card>
+      <mat-card-content>
+        <!-- <mat-progress-bar *ngIf="showprogressBar" color="primary" mode="indeterminate"></mat-progress-bar> -->
+        <form class="row needs-validation" [formGroup]="resetPassword">
+          <h4 class="fw-bold">Basic Details</h4>
+
+          <div>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label><b>Current Password</b></mat-label>
+              <input matInput name="currentPassword" required formControlName="currentPassword" required [type]="hide ? 'password' : 'text'"
+                placeholder="Current Password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label><b>New Password</b></mat-label>
+              <input matInput name="newPassword" formControlName="newPassword" [type]="newPass ? 'password' : 'text'" required placeholder="New Password">
+              <button mat-icon-button matSuffix (click)="newPass = !newPass" [attr.aria-label]="'newPass password'" [attr.aria-pressed]="newPass">
+                <mat-icon>{{newPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label><b>Confirm Password</b></mat-label>
+              <input matInput name="confirmPassword" formControlName="confirmPassword" required
+                placeholder="Confirm Password">
+            </mat-form-field>
+          </div>
+
+          <div class="text-center mt-2">
+            <button mat-raised-button type="submit" color="primary" [disabled]="resetPassword.invalid" (click)="onresetPassword()"
+              class="btn ps-5 pe-5">Reset Password</button>
+          </div>
+          
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-dialog-content>
+</ng-template>

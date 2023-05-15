@@ -1,0 +1,72 @@
+<mat-card class="mt-5">
+  <mat-card-title class="text-center fs-4 fw-bold border-bottom border-secondary border-2 mb-5">
+    <span class="fs-4 text-secondary">Add New Account User</span>
+    <mat-card-subtitle>(User Basic Details)</mat-card-subtitle>
+  </mat-card-title>
+  <mat-card-content>
+    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center" class="container">
+      <form [formGroup]="AddNewClientForm" class="signup4-for row" (ngSubmit)="onSubmit()">
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required type="text" name="firstName"
+              placeholder="First name" />
+            <mat-error *ngIf="firstName.hasError('required')">
+              First name is <strong>required**</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" required type="text" name="lastName" placeholder="Last name" />
+            <mat-error *ngIf="lastName.hasError('required')">
+              Last name is <strong>required**</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required type="email" name="email" placeholder="Email" />
+            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="email.hasError('required')">
+              Email is <strong>required**</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" required maxlength="10" minlength="10" name="phone"
+              placeholder="Phone" />
+            <mat-error *ngIf="phone.hasError('required')">
+              Phone name is <strong>required**</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address" required name="address" placeholder="Address" />
+            <mat-error *ngIf="address.hasError('required')">
+              Address name is <strong>required**</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-checkbox formControlName="agreed" class="float-end">I agree with terms and condtions</mat-checkbox>
+        <div fxLayout="row wrap" fxLayoutAlign="center" class="text-center mt-5 mb-2">
+          <button mat-flat-button [disabled]="AddNewClientForm.invalid" color="primary">Add New Account</button>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

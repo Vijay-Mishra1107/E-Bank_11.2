@@ -1,0 +1,31 @@
+<nav>
+  <div class="logo">
+    <img src="../../../../assets/images/E-Bank-new-removebg.png" height="110" width="275" alt=""
+    class="app-log me-" />
+    <!-- Brand -->
+  </div>
+  <!-- toggle menu button -->
+  <span class="menubtn" (click)="openNav()">&#9776;</span>
+  <div class="navLinks">
+    <ul>
+      <button mat-raised-button class="btn" color="primary" (click)="signinPage()" type="button">Login</button>
+    </ul>
+  </div>
+</nav>
+<!-- responsive side navbar -->
+<div class="sideNav" id="sidenav">
+  <button mat-icon-button class="closeBtn" (click)="closeNav()"> &#10006;</button>
+  <a><button mat-raised-button color="primary" (click)="signinPage()" type="button">Login</button></a>
+</div>
+
+<!-- Header content with banner image -->
+<div class="row2">
+  <div class="column1">
+    <h1>Responsive Design</h1>
+    <p>Contact us for responsive web design to grow2 your business!</p>
+    <button mat-raised-button class="btn" color="primary" (click)="signinPage()" type="button">Sign-In</button>
+  </div>
+  <div class="column2">
+    <img src="../../../../assets/images/banner-img.png" alt="banner" width="500px">
+  </div>
+</div>

@@ -1,0 +1,22 @@
+.mat-dialog-content {
+  min-height: 122px;
+}
+.rotate_image {
+  height: 55px; 
+  width: 55px; 
+  margin-bottom: -122px;
+  border-radius: 100%;
+  background-color: #27458f;
+}
+
+::ng-deep .cdk-overlay-container .loader-sapce mat-dialog-container {
+  padding-top: 0;
+  padding-bottom: 0;
+  background: none !important;
+  box-shadow: none !important;
+  color: #27458f !important;
+}
+
+::ng-deep .cdk-overlay-container .cdk-overlay-dark-backdrop{
+  background: #7e7e7e64;
+}
